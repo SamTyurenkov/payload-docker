@@ -1,0 +1,35 @@
+services:
+  payload:
+    container_name: node-payload
+    image: node-payload:latest
+    build:
+      context: .
+      dockerfile: docker/nodejs/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/home/next/app
+    working_dir: /home/next/app/
+    command: sh -c "$COMMAND"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+
+  mongo:
+    container_name: mongo-payload
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+    logging:
+      driver: none
+
+volumes:
+  data:
