@@ -64,6 +64,15 @@ export const Pages: CollectionConfig<'pages'> = {
       required: true,
     },
     {
+      name: 'authors',
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+      },
+      hasMany: true,
+      relationTo: 'users',
+    },
+    {
       type: 'tabs',
       tabs: [
         {

@@ -23,13 +23,14 @@ docker-prod:
 docker-down:
 	docker-compose down
 
-# linters
+migrate:
+	env USER_ID=${USER_ID} env GROUP_ID=${GROUP_ID} env COMMAND="npm run payload migrate" docker-compose up -d
+
 lint-js:
 	docker exec -w /home/next/app node-payload npm run lint-js $(ARGS)
 
 format-js:
 	docker exec -w /home/next/app node-payload npm run format-js $(ARGS)
 
-# frontend
 npm:
 	docker exec -w /home/next/app node-payload npm $(ARGS)
