@@ -23,13 +23,20 @@ docker-prod:
 docker-down:
 	docker-compose down
 
-# linters
+migrate:
+	docker exec -w /home/next/app node-payload npm run payload migrate
+
+migrate-reset:
+	docker exec -w /home/next/app node-payload npm run payload migrate:reset
+
+generate-types:
+	docker exec -w /home/next/app node-payload npm run payload generate:types
+
 lint-js:
 	docker exec -w /home/next/app node-payload npm run lint-js $(ARGS)
 
 format-js:
 	docker exec -w /home/next/app node-payload npm run format-js $(ARGS)
 
-# frontend
 npm:
 	docker exec -w /home/next/app node-payload npm $(ARGS)
