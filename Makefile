@@ -24,7 +24,13 @@ docker-down:
 	docker-compose down
 
 migrate:
-	env USER_ID=${USER_ID} env GROUP_ID=${GROUP_ID} env COMMAND="npm run payload migrate" docker-compose up -d
+	docker exec -w /home/next/app node-payload npm run payload migrate
+
+migrate-reset:
+	docker exec -w /home/next/app node-payload npm run payload migrate:reset
+
+generate-types:
+	docker exec -w /home/next/app node-payload npm run payload generate:types
 
 lint-js:
 	docker exec -w /home/next/app node-payload npm run lint-js $(ARGS)

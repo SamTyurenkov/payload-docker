@@ -31,7 +31,7 @@ To spin up this example locally, follow these steps:
 
 1. First [clone the repo](#clone) if you have not done so already
 1. `cd my-project && cp .env.example .env` to copy the example environment variables
-1. `apt-get update && install make docker docker-compose` required for docker and makefile 
+1. `apt-get update && apt-get install make docker docker-compose` required for docker and makefile 
 1. `make docker-build && make docker-dev` to install dependencies and start the dev server
 1. open `http://localhost:3000` to open the app in your browser
 

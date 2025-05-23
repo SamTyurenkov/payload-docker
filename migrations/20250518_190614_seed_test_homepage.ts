@@ -65,8 +65,9 @@ export async function up({ payload, req, session }: MigrateUpArgs): Promise<void
   });
 
   const page: Omit<Page, 'id' | 'updatedAt' | 'createdAt' | 'sizes'> = {
-    title: 'Test Homepage',
+    title: 'Home',
     authors: [demoAdmin],
+    _status: 'published',
     slug: 'home',
     hero: {
       type: 'highImpact',
@@ -157,9 +158,8 @@ export async function up({ payload, req, session }: MigrateUpArgs): Promise<void
     },
     layout: [
       {
-        blockName: 'Archive Block',
-        blockType: 'archive',
-        categories: [],
+        blockName: 'Projects Table',
+        blockType: 'projectsTable',
         introContent: {
           root: {
             type: 'root',
@@ -173,7 +173,7 @@ export async function up({ payload, req, session }: MigrateUpArgs): Promise<void
                     format: 0,
                     mode: 'normal',
                     style: '',
-                    text: 'Recent posts',
+                    text: 'Projects in the database',
                     version: 1,
                   },
                 ],
@@ -192,7 +192,7 @@ export async function up({ payload, req, session }: MigrateUpArgs): Promise<void
                     format: 0,
                     mode: 'normal',
                     style: '',
-                    text: 'The posts below are displayed in an "Archive" layout building block which is an extremely powerful way to display documents on a page. It can be auto-populated by collection or by category, or posts can be individually selected. Pagination controls will automatically appear if the number of results exceeds the number of items per page.',
+                    text: 'Click on the filters to select specific projects.',
                     version: 1,
                   },
                 ],
@@ -209,7 +209,6 @@ export async function up({ payload, req, session }: MigrateUpArgs): Promise<void
             version: 1,
           },
         },
-        populateBy: 'collection',
         relationTo: 'projects',
       },
     ]
