@@ -29,13 +29,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, onF
     useEffect(() => {
         const fetchAssignees = async () => {
             try {
-                const response = await fetch('/api/users') // Replace with your API endpoint
+                const response = await fetch('/api/users_custom') // Replace with your API endpoint
                 if (!response.ok) {
                     setAssignees([])
                 } else {
                     const data = await response.json()
-                    console.log(data.docs);
-                    setAssignees(data.docs)
+                    setAssignees(data)
                 }
 
             } catch (error) {
@@ -103,15 +102,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, onF
                     budget,
                     status,
                     deadline,
+                    _status: 'published',
                     assigned: selectedAssignees,
                 }),
             })
 
             if (!response.ok) {
-                errorMessage = project ? 'Failed to update project' : 'Failed to create project'
-                const errorResponse = await response.text()
-                const errorData = JSON.parse(errorResponse)
-                errorMessage = errorData?.error || errorMessage
+                if (response.status === 403) {
+                    errorMessage = 'Please <a href="/admin" class="font-bold underline">log in</a> to add or edit projects'
+                } else {
+                    errorMessage = project ? 'Failed to update project' : 'Failed to create project'
+                    const errorResponse = await response.text()
+                    const errorData = JSON.parse(errorResponse)
+                    errorMessage = errorData?.error || errorMessage
+                }
                 setError(errorMessage);
                 setIsSubmitted(false);
             } else {
@@ -230,9 +234,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, onF
 
                     {/* Error Message */}
                     {error && (
-                        <div className="mt-4 text-sm text-red-600">
-                            {error}
-                        </div>
+                        <div className="mt-4 text-sm text-red-600" dangerouslySetInnerHTML={{ __html: error }} />
                     )}
 
                     {/* Success Message */}

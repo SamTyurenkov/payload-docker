@@ -33,12 +33,12 @@ export const revalidateProject: CollectionAfterChangeHook<Project> = ({
 }
 
 export const revalidateDelete: CollectionAfterDeleteHook<Project> = ({ doc, req: { context } }) => {
-  // if (!context.disableRevalidate) {
-  //   const path = `/projects/${doc?.slug}`
+  if (!context.disableRevalidate) {
+    const path = `/projects/${doc?.slug}`
 
-  //   revalidatePath(path)
-  //   revalidateTag('projects-sitemap')
-  // }
+    // revalidatePath(path)
+    //revalidateTag('projects-sitemap')
+  }
 
   return doc
 }

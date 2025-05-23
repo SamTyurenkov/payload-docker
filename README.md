@@ -33,7 +33,9 @@ To spin up this example locally, follow these steps:
 1. `cd my-project && cp .env.example .env` to copy the example environment variables
 1. `apt-get update && apt-get install make docker docker-compose` required for docker and makefile 
 1. `make docker-build && make docker-dev` to install dependencies and start the dev server
+1. wait until node-modules are installed fully and docker logs show that app started
 1. open `http://localhost:3000` to open the app in your browser
+1. optionally `make migrate` or `make migrate-reset` to add or remove test data
 
 That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 

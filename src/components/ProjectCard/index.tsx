@@ -1,24 +1,17 @@
 'use client'
 import { cn } from '@/utilities/ui'
-import useClickableCard from '@/utilities/useClickableCard'
-import Link from 'next/link'
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import type { Project } from '@/payload-types'
-
-import { Media } from '@/components/Media'
-
-export type ProjectCardPostData = Pick<Project, 'slug' | 'budget' | 'title' | 'status' | 'deadline' | 'assigned'>
 
 export const ProjectCard: React.FC<{
     alignItems?: 'center'
     className?: string
-    doc?: ProjectCardPostData
+    doc?: Project
     relationTo?: 'projects'
     title?: string
     onClick?: () => void
 }> = (props) => {
-    const { card, link } = useClickableCard({})
     const { className, doc, relationTo, title: titleFromProps, onClick } = props
 
     const { slug, title, budget, status, deadline, assigned } = doc || {}
@@ -49,7 +42,6 @@ export const ProjectCard: React.FC<{
                 'border border-border rounded-lg overflow-hidden bg-card',
                 className,
             )}
-            ref={card.ref}
         >
             <div className="p-4">
                 {titleToUse && (
